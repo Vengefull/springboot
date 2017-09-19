@@ -17,9 +17,10 @@ public class Book implements Serializable
   @Column(nullable = false)
   private Author author;
 
-  public Book(String title)
+  public Book(String title, Author author)
   {
     this.title = title;
+    this.author = author;
   }
 
   public String getTitle()
