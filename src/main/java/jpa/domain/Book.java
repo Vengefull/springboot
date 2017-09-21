@@ -11,16 +11,30 @@ public class Book implements Serializable
 {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(nullable = false)
   private Long   id;
   @Column(nullable = false)
   private String title;
-  @Column(nullable = false)
+  /**
+   * bidirectional relationship
+   */
+  @ManyToOne
+  @JoinColumn(name = "authorId")
   private Author author;
+
+  public Book(String title)
+  {
+    this.title = title;
+  }
 
   public Book(String title, Author author)
   {
     this.title = title;
     this.author = author;
+  }
+
+  public Book()
+  {
   }
 
   public String getTitle()

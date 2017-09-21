@@ -2,6 +2,7 @@ package jpa.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,16 +12,19 @@ import java.util.List;
 public class Author implements Serializable
 {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long   id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long       authorId;
   @Column(nullable = false)
-  private String firstName;
+  private String     firstName;
   @Column(nullable = false)
-  private String lastName;
+  private String     lastName;
   @Column(nullable = false)
-  private int    age;
-
-  private List<Book> books;
+  private int        age;
+  /**
+   * bidirectional relationship
+   */
+  @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+  private List<Book> books = new ArrayList<>();
 
   public Author(String firstName, String lastName, int age)
   {
@@ -39,14 +43,14 @@ public class Author implements Serializable
     this.firstName = firstName;
   }
 
-  public Long getId()
+  public Long getAuthorId()
   {
-    return id;
+    return authorId;
   }
 
-  public void setId(Long id)
+  public void setAuthorId(Long authorId)
   {
-    this.id = id;
+    this.authorId = authorId;
   }
 
   public String getLastName()
@@ -83,7 +87,7 @@ public class Author implements Serializable
   public String toString()
   {
     return "Author{" +
-           "id=" + id +
+           "authorId=" + authorId +
            ", firstName='" + firstName + '\'' +
            ", lastName='" + lastName + '\'' +
            ", age=" + age +
