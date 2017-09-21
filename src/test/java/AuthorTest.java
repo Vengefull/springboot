@@ -10,10 +10,10 @@ import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import org.springframework.test.context.junit4.SpringRunner;
-
 import org.springframework.transaction.annotation.Transactional;
+
+import static org.hamcrest.Matchers.*;
 
 /**
  * Created by lpetkov on 21/09/2017
@@ -29,40 +29,30 @@ public class AuthorTest
   BookRepository   bookRepository;
 
   @Test
-  public void print()
+  public void addFetchAuthor()
   {
-    Author author  = new Author("lubo", "petkov", 26);
-    Author author2 = new Author("luben", "petkov", 26);
-
+    Author author = new Author("lubo", "petkov", 26);
 
     Book book  = new Book("Hello world");
     Book book2 = new Book("Hello world second edition");
-    Book book3 = new Book("world of warcraft");
+    Book book3 = new Book("World of WarCraft");
 
-    author2.getBooks().add(book3);
-
-    book3.setAuthor(author2);
     book.setAuthor(author);
     book2.setAuthor(author);
+    book3.setAuthor(author);
 
     author.getBooks().add(book);
     author.getBooks().add(book2);
+    author.getBooks().add(book3);
 
     authorRepository.save(author);
-    //2nd author
-    authorRepository.save(author2);
-    book3.setTitle("Warcraft");
-    bookRepository.save(book3);
+    authorRepository.findOne(author.getAuthorId());
 
-    authorRepository.findOne(author2.getAuthorId());
     Author dbAuthor = authorRepository.findOne(author.getAuthorId());
 
-    System.out.println(dbAuthor.getFirstName() + " " + dbAuthor.getLastName() + " has " + dbAuthor.getBooks().size());
     Assert.assertNotNull(dbAuthor);
-    Assert.assertEquals(dbAuthor.getFirstName(), author.getFirstName());
-
-    System.out.println(dbAuthor.getBooks().get(0).getTitle() + ", " + dbAuthor.getBooks().get(1).getTitle());
-    Book book4 = bookRepository.findOne(book3.getId());
-    System.out.println(book4.getTitle() + ":" + book4.getAuthor().getFirstName());
+    Assert.assertThat(dbAuthor.getBooks(), hasSize(3));
+    Assert.assertThat(dbAuthor.getBooks().get(0).getTitle(), equalTo("Hello world"));
+    Assert.assertEquals(dbAuthor.getBooks(), author.getBooks());
   }
 }
