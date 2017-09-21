@@ -18,7 +18,7 @@ public class Book implements Serializable
   /**
    * bidirectional relationship
    */
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "A_ID")
   private Author author;
 
