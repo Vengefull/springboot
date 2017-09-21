@@ -33,9 +33,7 @@ public class Book implements Serializable
     this.author = author;
   }
 
-  public Book()
-  {
-  }
+
 
   public String getTitle()
   {

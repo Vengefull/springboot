@@ -34,9 +34,7 @@ public class Author implements Serializable
     this.age = age;
   }
 
-  public Author()
-  {
-  }
+
 
   public String getFirstName()
   {
