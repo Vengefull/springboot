@@ -13,13 +13,14 @@ public class Author implements Serializable
 {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long       authorId;
+  @Column(name = "A_ID")
+  private Long   authorid;
   @Column(nullable = false)
-  private String     firstName;
+  private String firstName;
   @Column(nullable = false)
-  private String     lastName;
+  private String lastName;
   @Column(nullable = false)
-  private int        age;
+  private int    age;
   /**
    * bidirectional relationship
    */
@@ -31,6 +32,10 @@ public class Author implements Serializable
     this.firstName = firstName;
     this.lastName = lastName;
     this.age = age;
+  }
+
+  public Author()
+  {
   }
 
   public String getFirstName()
@@ -45,12 +50,12 @@ public class Author implements Serializable
 
   public Long getAuthorId()
   {
-    return authorId;
+    return authorid;
   }
 
-  public void setAuthorId(Long authorId)
+  public void setAuthorId(Long authorid)
   {
-    this.authorId = authorId;
+    this.authorid = authorid;
   }
 
   public String getLastName()
@@ -87,7 +92,7 @@ public class Author implements Serializable
   public String toString()
   {
     return "Author{" +
-           "authorId=" + authorId +
+           "authorid=" + authorid +
            ", firstName='" + firstName + '\'' +
            ", lastName='" + lastName + '\'' +
            ", age=" + age +

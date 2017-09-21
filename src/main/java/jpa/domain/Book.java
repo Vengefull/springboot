@@ -19,7 +19,7 @@ public class Book implements Serializable
    * bidirectional relationship
    */
   @ManyToOne
-  @JoinColumn(name = "authorId")
+  @JoinColumn(name = "A_ID")
   private Author author;
 
   public Book(String title)
