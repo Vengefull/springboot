@@ -100,21 +100,25 @@ public class Author implements Serializable
 
     Author author = (Author) o;
 
+    if (age != author.age) {
+      return false;
+    }
     if (!authorid.equals(author.authorid)) {
       return false;
     }
-    if (firstName != null ? !firstName.equals(author.firstName) : author.firstName != null) {
+    if (!firstName.equals(author.firstName)) {
       return false;
     }
-    return lastName != null ? lastName.equals(author.lastName) : author.lastName == null;
+    return lastName.equals(author.lastName);
   }
 
   @Override
   public int hashCode()
   {
     int result = authorid.hashCode();
-    result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-    result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+    result = 31 * result + firstName.hashCode();
+    result = 31 * result + lastName.hashCode();
+    result = 31 * result + age;
     return result;
   }
 
@@ -126,7 +130,6 @@ public class Author implements Serializable
            ", firstName='" + firstName + '\'' +
            ", lastName='" + lastName + '\'' +
            ", age=" + age +
-           ", books=" + books +
            '}';
   }
 }

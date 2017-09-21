@@ -82,10 +82,7 @@ public class Book implements Serializable
     if (!id.equals(book.id)) {
       return false;
     }
-    if (title != null ? !title.equals(book.title) : book.title != null) {
-      return false;
-    }
-    return author != null ? author.equals(book.author) : book.author == null;
+    return title != null ? title.equals(book.title) : book.title == null;
   }
 
   @Override
@@ -93,7 +90,6 @@ public class Book implements Serializable
   {
     int result = id.hashCode();
     result = 31 * result + (title != null ? title.hashCode() : 0);
-    result = 31 * result + (author != null ? author.hashCode() : 0);
     return result;
   }
 
@@ -103,7 +99,6 @@ public class Book implements Serializable
     return "Book{" +
            "id=" + id +
            ", title='" + title + '\'' +
-           ", author=" + author +
            '}';
   }
 }
