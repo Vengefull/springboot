@@ -25,8 +25,6 @@ public class AuthorTest
 {
   @Autowired
   AuthorRepository authorRepository;
-  @Autowired
-  BookRepository   bookRepository;
 
   @Test
   public void addFetchAuthor()
